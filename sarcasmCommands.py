@@ -24,7 +24,7 @@ class SarcasmCommands:
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state=42)
         self.model.fit(x_train, y_train)
 
-    def check_model_prediction(self, message):
+    async def check_model_prediction(self, message):
         # checks trained model with phrase sent through request
         data = self.cv.transform([message.content]).toarray()
         output = self.model.predict(data)
