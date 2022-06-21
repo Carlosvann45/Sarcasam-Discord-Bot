@@ -1,7 +1,12 @@
 import discord
 import os
 
+import sarcasmCommands
+
 client = discord.Client()
+sarcasm_command = sarcasmCommands.SarcasmCommands()
+
+sarcasm_command.train_bernoulli_model()
 
 
 @client.event
@@ -11,16 +16,13 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    username = str(message.author).split('#')[0]
-    user_message = str(message.content)
-    channel = str(message.channel)
-
     if message.author == client.user:
         return
     elif message.channel.name != 'bot-testing':
         return
 
-    await message.channel.send(f'{message.author.mention} you are messaging in this channel: {channel}')
+    sarcasm_command.check_model_prediction(message)
 
 
-client.run(os.environ['DISCORD_TOKEN'])
+# client.run(os.environ['DISCORD_TOKEN'])
+client.run('OTg4Mjg5MjY5Mjk2NjYwNTQw.GWnWvU.PzuEv_MeQGatXqFrtBCLwb5JARMuFRes6qOjNc')
